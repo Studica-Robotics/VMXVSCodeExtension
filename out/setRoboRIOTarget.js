@@ -37,6 +37,7 @@ function activate(context) {
         }
         catch (err) {
             console.log('error setting wpilib (gradlerio) version');
+            vscode.window.showErrorMessage('Failure! Please undo any changes to the build.gradle file');
             return;
         }
     }));

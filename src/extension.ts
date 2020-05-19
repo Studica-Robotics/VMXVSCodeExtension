@@ -16,6 +16,9 @@ export function activate(context: vscode.ExtensionContext) {
     setRoboRIOTarget.activate(context);
     
 
+    context.subscriptions.push(vscode.commands.registerCommand('vmxpi.openCommandPalette', async () => {
+        await vscode.commands.executeCommand('workbench.action.quickOpen', '>VMX-Pi: ');
+    }));
 }
 
 

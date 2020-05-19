@@ -1,9 +1,14 @@
 {
 	"name": "vmxpi",
-	"displayName": "vmxpi",
-	"description": "",
+	"displayName": "VMX-Pi WPILib",
+	"description": "Tools to simplify the VMX-Pi WPILib experience",
 	"version": "0.0.1",
-	"publisher": "Kaden",
+	"publisher": "Kauailabs",
+	"icon": "resources/VMX_128.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/kauailabs/VMXVSCodeExtension"
+	},
 	"engines": {
 		"vscode": "^1.41.0"
 	},
@@ -13,7 +18,8 @@
 	"activationEvents": [
 		"onCommand:vmxpi.updateWPILib",
 		"onCommand:vmxpi.setVMXPiTarget",
-		"onCommand:vmxpi.setRoboRIOTarget"
+		"onCommand:vmxpi.setRoboRIOTarget",
+		"onCommand:vmxpi.openCommandPalette"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -32,8 +38,28 @@
 				"command": "vmxpi.setRoboRIOTarget",
 				"title": "Change the deploy target to RoboRIO (from VMX-Pi)",
 				"category": "VMX-Pi"
-			}
-		]
+			},
+            {
+                "command": "vmxpi.openCommandPalette",
+                "title": "Open VMX-Pi Command Palette",
+                "category": "VMX-Pi",
+                "icon": "resources/VMX_128.png"
+            }
+		],
+		"menus": {
+            "commandPalette": [
+                {
+					"command": "vmxpi.openCommandPalette",
+                    "when": "false"
+                }
+			],
+			"editor/title": [
+                {
+					"command": "vmxpi.openCommandPalette",
+                    "group": "navigation@9"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

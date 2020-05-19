@@ -44,10 +44,11 @@ export function activate(context: vscode.ExtensionContext) {
 
             
         }
-         catch (err) {
+        catch (err) {
             console.log('error setting wpilib (gradlerio) version');
-        return;
-      }
+            vscode.window.showErrorMessage('Failure! Please undo any changes to the build.gradle file');
+            return;
+        }
 
 
 	});
