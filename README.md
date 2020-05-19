@@ -1,5 +1,5 @@
 # VMXVSCodeExtension
-Source code for VSCodeExtension to manage access to WPILibrary-based VMX-pi capabilities
+Source code for VSCodeExtension to manage access to WPILib-based VMX-pi capabilities
 
 
 # Installation
@@ -8,7 +8,7 @@ Open VSCode, in the Extensions window, find "Install from VSIX..."
 Select the downloaded .vsix file to install
 
 # Usage
-The extension's commands can be accessed through the Command Pallete (opened with Ctrl+Shift+P)
+The extension's commands can be accessed through the VMX icon in the Quick Access Toolbar (top right) or the Command Pallete (opened with Ctrl+Shift+P)
 All commands are located under the VMX-Pi category
 
 `Update WPILib Version` updates the VMX-Pi specific WPILib library and GradleRIO to the latest version
