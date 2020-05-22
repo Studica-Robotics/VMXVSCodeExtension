@@ -15,12 +15,14 @@ const vscode = require("vscode");
 const updateWPILib = require("./updateWPILib");
 const setVMXPiTarget = require("./setVMXPiTarget");
 const setRoboRIOTarget = require("./setRoboRIOTarget");
+const checkGradleStatus = require("./checkGradleStatus");
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 function activate(context) {
     updateWPILib.activate(context);
     setVMXPiTarget.activate(context);
     setRoboRIOTarget.activate(context);
+    checkGradleStatus.activate(context);
     context.subscriptions.push(vscode.commands.registerCommand('vmxpi.openCommandPalette', () => __awaiter(this, void 0, void 0, function* () {
         yield vscode.commands.executeCommand('workbench.action.quickOpen', '>VMX-Pi: ');
     })));

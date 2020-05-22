@@ -19,6 +19,7 @@
 		"onCommand:vmxpi.updateWPILib",
 		"onCommand:vmxpi.setVMXPiTarget",
 		"onCommand:vmxpi.setRoboRIOTarget",
+		"onCommand:vmxpi.checkGradleStatus",
 		"onCommand:vmxpi.openCommandPalette"
 	],
 	"main": "./out/extension.js",
@@ -37,6 +38,11 @@
 			{
 				"command": "vmxpi.setRoboRIOTarget",
 				"title": "Change the deploy target to RoboRIO (from VMX-Pi)",
+				"category": "VMX-Pi"
+			},
+			{
+				"command": "vmxpi.checkGradleStatus",
+				"title": "Verify the Project's build.gradle file",
 				"category": "VMX-Pi"
 			},
             {
