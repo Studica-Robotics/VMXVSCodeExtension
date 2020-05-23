@@ -46,7 +46,8 @@ export function activate(context: vscode.ExtensionContext) {
         }
         catch (err) {
             console.log('error setting wpilib (gradlerio) version');
-            vscode.window.showErrorMessage('Failure! Please undo any changes to the build.gradle file');
+            
+            vscode.window.showErrorMessage('No build.gradle file found, is this a WPILib project?');
             return;
         }
 

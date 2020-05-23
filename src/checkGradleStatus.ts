@@ -3,78 +3,85 @@ import { existsAsync, readdirAsync, readFileAsync, writeFileAsync } from './util
 
 
 function getPluginRegex() {
-	return /(id\s*?[\"|\'])(.+?)(\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
+    return /(id\s*?[\"|\'])(.+?)(\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
 }
 
 function getGradleRioVMXRegex() {
-	return /(id\s*?[\"|\']com\.kauailabs\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
+    return /(id\s*?[\"|\']com\.kauailabs\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
 }
 
 function getGradleRioRegex() {
-	return /(id\s*?[\"|\']edu\.wpi\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
+    return /(id\s*?[\"|\']edu\.wpi\.first\.GradleRIO[\"|\'].*?version\s*?[\"|\'])(.+?)([\"|\'])/g;
 }
 
 
 //Each line check reports a 0, 1, or 2. 0 = Line not found. 1 = VMX Configuration set. 2 = RoboRIO Configuration.
 export async function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('vmxpi.checkGradleStatus', async () => {
+    let disposable = vscode.commands.registerCommand('vmxpi.checkGradleStatus', async () => {
 
-        const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
-        const buildGradleFile = await readFileAsync(buildGradlePath, 'utf8');
 
-        var pluginLine = checkPluginLine(buildGradleFile);
-        var targetsLine = checkTargetsLine(buildGradleFile);
+        try {
+            const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+            const buildGradleFile = await readFileAsync(buildGradlePath, 'utf8');
 
-        if (buildGradleFile.includes('id \"cpp\"')) {
-            var platformsLine = checkPlatformsLine(buildGradleFile, true);
-            var artifactsLine = checkArtifactsLine(buildGradleFile);
-            if ((pluginLine + targetsLine + platformsLine) === 3) {
-                if (artifactsLine === "cpp") {
-                    vscode.window.showInformationMessage("Project configured for VMX-Pi C++ usage");
+            var pluginLine = checkPluginLine(buildGradleFile);
+            var targetsLine = checkTargetsLine(buildGradleFile);
+
+            if (buildGradleFile.includes('id \"cpp\"')) {
+                var platformsLine = checkPlatformsLine(buildGradleFile, true);
+                var artifactsLine = checkArtifactsLine(buildGradleFile);
+                if ((pluginLine + targetsLine + platformsLine) === 3) {
+                    if (artifactsLine === "cpp") {
+                        vscode.window.showInformationMessage("Project configured for VMX-Pi C++ usage");
+                    }
+                }
+                else if ((pluginLine + targetsLine + platformsLine) === 6) {
+                    if (artifactsLine === "cpp") {
+                        vscode.window.showInformationMessage("Project configured for RoboRIO C++ usage");
+                    }
+                }
+                else {
+                    vscode.window.showErrorMessage("Project is not properly configured for either RoboRIO or VMX-Pi usage");
+                }
+
+                if (artifactsLine !== "cpp") {
+                    vscode.window.showErrorMessage("Project language is not properly configured");
                 }
             }
-            else if ((pluginLine + targetsLine + platformsLine) === 6) {
-                if (artifactsLine === "cpp") {
-                    vscode.window.showInformationMessage("Project configured for RoboRIO C++ usage");
+            else if (buildGradleFile.includes('id \"java\"')) {
+                var platformsLine = checkPlatformsLine(buildGradleFile, false);
+                var artifactsLine = checkArtifactsLine(buildGradleFile);
+                if ((pluginLine + targetsLine + platformsLine) === 3) {
+                    if (artifactsLine === "java") {
+                        vscode.window.showInformationMessage("Project configured for VMX-Pi Java usage");
+                    }
+                }
+                else if ((pluginLine + targetsLine + platformsLine) === 6) {
+                    if (artifactsLine === "java") {
+                        vscode.window.showInformationMessage("Project configured for RoboRIO Java usage");
+                    }
+                }
+                else {
+                    vscode.window.showErrorMessage("Project is not properly configured for either RoboRIO or VMX-Pi usage");
+                }
+
+                if (artifactsLine !== "java") {
+                    vscode.window.showErrorMessage("Project language is not properly configured");
                 }
             }
             else {
-                vscode.window.showErrorMessage("Project is not properly configured for either RoboRIO or VMX-Pi usage");
-            }
-
-            if (artifactsLine !== "cpp") {
-                vscode.window.showErrorMessage("Project language is not properly configured");
+                vscode.window.showErrorMessage("Project language is not properly configured")
             }
         }
-        else if (buildGradleFile.includes('id \"java\"')) {
-            var platformsLine = checkPlatformsLine(buildGradleFile, false);
-            var artifactsLine = checkArtifactsLine(buildGradleFile);
-            if ((pluginLine + targetsLine + platformsLine) === 3) {
-                if (artifactsLine === "java") {
-                    vscode.window.showInformationMessage("Project configured for VMX-Pi Java usage");
-                }
-            }
-            else if ((pluginLine + targetsLine + platformsLine) === 6) {
-                if (artifactsLine === "java") {
-                    vscode.window.showInformationMessage("Project configured for RoboRIO Java usage");
-                }
-            }
-            else {
-                vscode.window.showErrorMessage("Project is not properly configured for either RoboRIO or VMX-Pi usage");
-            }
-
-            if (artifactsLine !== "java") {
-                vscode.window.showErrorMessage("Project language is not properly configured");
-            }
-        }
-        else {
-            vscode.window.showErrorMessage("Project language is not properly configured")
+        catch (err) {
+            vscode.window.showErrorMessage('No build.gradle file found, is this a WPILib project?');
+            return;
         }
     });
-    
-    
-	context.subscriptions.push(disposable);
+
+
+    context.subscriptions.push(disposable);
 }
 
 //0 = Line not found. 1 = VMX Configuration set. 2 = RoboRIO Configuration.
@@ -133,5 +140,5 @@ function checkPlatformsLine(buildGradle: String, cpp: boolean) {
 
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
 
