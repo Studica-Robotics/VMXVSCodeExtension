@@ -22,7 +22,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
         try {
-            const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+            const buildGradlePath = (vscode.workspace.rootPath + '/build.gradle');
             const buildGradleFile = await readFileAsync(buildGradlePath, 'utf8');
 
             var pluginLine = checkPluginLine(buildGradleFile);

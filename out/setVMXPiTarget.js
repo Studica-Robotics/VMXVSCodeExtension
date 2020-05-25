@@ -24,7 +24,7 @@ function activate(context) {
     let disposable = vscode.commands.registerCommand('vmxpi.setVMXPiTarget', () => __awaiter(this, void 0, void 0, function* () {
         // The code you place here will be executed every time your command is executed
         try {
-            const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+            const buildGradlePath = (vscode.workspace.rootPath + '/build.gradle');
             const buildGradleFile = yield utilities_1.readFileAsync(buildGradlePath, 'utf8');
             //Replace the GradleRIO plugin line
             var newgFile = buildGradleFile.replace(getPluginRegex(), `$1${'com.kauailabs'}$3${'run.wpilib.update'}$5`);

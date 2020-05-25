@@ -73,7 +73,7 @@ function setGradleRIOVersion(version) {
     return __awaiter(this, void 0, void 0, function* () {
         var resolvedVersion = yield version;
         try {
-            const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+            const buildGradlePath = (vscode.workspace.rootPath + '/build.gradle');
             const buildGradleFile = yield utilities_1.readFileAsync(buildGradlePath, 'utf8');
             //Checks to see if the latest version is already used
             const newgFile = buildGradleFile.replace(getGradleRioRegex(), `$1${resolvedVersion}$3`);

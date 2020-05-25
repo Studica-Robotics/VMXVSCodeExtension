@@ -25,7 +25,7 @@ export function activate(context: vscode.ExtensionContext) {
 		// The code you place here will be executed every time your command is executed
 
         try { 
-            const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+            const buildGradlePath = (vscode.workspace.rootPath + '/build.gradle');
             const buildGradleFile = await readFileAsync(buildGradlePath, 'utf8');
     
             //Replace the GradleRIO plugin line

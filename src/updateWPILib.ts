@@ -86,7 +86,7 @@ async function setGradleRIOVersion(version: string): Promise<void> {
 	var resolvedVersion = await version;
 
 	try { 
-		const buildGradlePath = (vscode.workspace.rootPath + '\\build.gradle');
+		const buildGradlePath = (vscode.workspace.rootPath + '/build.gradle');
 	
 		const buildGradleFile = await readFileAsync(buildGradlePath, 'utf8');
 
