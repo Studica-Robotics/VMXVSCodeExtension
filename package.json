@@ -2,7 +2,7 @@
 	"name": "vmxpi",
 	"displayName": "VMX-Pi WPILib",
 	"description": "Tools to simplify the VMX-Pi WPILib experience",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"publisher": "Kauailabs",
 	"icon": "resources/VMX_128.png",
 	"repository": {
@@ -45,24 +45,24 @@
 				"title": "Verify the Project's build.gradle file",
 				"category": "VMX-Pi"
 			},
-            {
-                "command": "vmxpi.openCommandPalette",
-                "title": "Open VMX-Pi Command Palette",
-                "category": "VMX-Pi",
-                "icon": "resources/VMX_128.png"
-            }
+			{
+				"command": "vmxpi.openCommandPalette",
+				"title": "Open VMX-Pi Command Palette",
+				"category": "VMX-Pi",
+				"icon": "resources/VMX_128.png"
+			}
 		],
 		"menus": {
-            "commandPalette": [
-                {
+			"commandPalette": [
+				{
 					"command": "vmxpi.openCommandPalette",
-                    "when": "false"
-                }
+					"when": "false"
+				}
 			],
 			"editor/title": [
-                {
+				{
 					"command": "vmxpi.openCommandPalette",
-                    "group": "navigation@9"
+					"group": "navigation@9"
 				}
 			]
 		}
@@ -87,11 +87,12 @@
 		"eslint": "^6.8.0",
 		"glob": "^7.1.6",
 		"mocha": "^7.1.2",
-		"typescript": "^3.8.3",
+		"typescript": "^3.9.3",
 		"vscode-test": "^1.3.0"
 	},
 	"dependencies": {
 		"node-fetch": "^2.6.0",
+		"tsc": "^1.20150623.0",
 		"xml2js": "^0.4.23"
 	}
 }

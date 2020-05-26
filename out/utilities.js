@@ -9,6 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.setExtensionContext = exports.extensionContext = exports.setJavaHome = exports.javaHome = exports.readdirAsync = exports.deleteFileAsync = exports.existsAsync = exports.mkdirAsync = exports.copyFileAsync = exports.writeFileAsync = exports.readFileAsync = exports.getPackageName = exports.getClassName = exports.getIsMac = exports.getIsWindows = void 0;
 const fs = require("fs");
 const util = require("util");
 const vscode = require("vscode");
