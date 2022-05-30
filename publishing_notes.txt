@@ -1,0 +1,13 @@
+1) vsce package will rebuild the package
+2) vsce publish will publish the package
+3) The personal access tokens expire periodically.
+If a new personal access token is needed:
+- Login:
+https://dev.azure.com/kauailabs
+	Login works in EDGE (but not in chrome)
+	I chose to login using scott (scott@kauailabs) – account connected to windows
+•	This is my windows login
+	Organization:  kauailabs
+Select kauailabs organization, create personal new personal access token with full permissions
+NOTE:  Be sure to select "All Accessible organizations" in the menus when creaeting the token
+After getting token issue "vsce login kauailabs" and enter the new token
